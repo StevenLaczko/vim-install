@@ -6,10 +6,12 @@ fi
 cp "$(pwd)/vimrc" "$HOME/.vimrc"
 mkdir -p "$HOME/.vim/pack/my-plugins/start"
 curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-git clone https://codeberg.org/flausch/mdcat.git
-apt install cargo
-cd ./mdcat
-cargo install --path .
+if [[ $1 != "--no-mdcat" ]]; then
+    git clone https://codeberg.org/flausch/mdcat.git
+    apt install cargo
+    cd ./mdcat
+    cargo install --path .
+fi
 echo "Type :NERDtree for help with that."
 echo "Type :h fzf for help with fzf."
 echo "Use ,m to preview a markdown file."
