@@ -1,8 +1,8 @@
-cp ./.vimrc ~/.vimrc
-mkdir -p ~/.vim/pack/my-plugins/start
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-mkdir ~/src
-cd ~/src
+cp "$(pwd)/vimrc" "$HOME/.vimrc"
+mkdir -p "$HOME/.vim/pack/my-plugins/start"
+curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+mkdir "$HOME/src"
+cd "$HOME/src"
 git clone https://codeberg.org/flausch/mdcat.git
 apt install cargo
 cd ./mdcat
