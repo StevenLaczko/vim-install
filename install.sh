@@ -1,3 +1,8 @@
+#!/bin/bash
+if [[ "$(pwd)" != *vim-install ]]; then
+    cd vim-install
+fi
+
 cp "$(pwd)/vimrc" "$HOME/.vimrc"
 mkdir -p "$HOME/.vim/pack/my-plugins/start"
 curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
