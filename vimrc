@@ -26,13 +26,26 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" plugins
 call plug#begin()
 Plug 'preservim/NERDTree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-syntastic/syntastic'
 Plug 'https://github.com/ap/vim-css-color'
 Plug 'junegunn/fzf.vim'
+Plug 'gabrielelana/vim-markdown'
 call plug#end()
+
+" autoinstall uninstalled plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+  \| endif
+
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+nnoremap <SPACE> <Nop>
+let mapleader = " "
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
@@ -40,7 +53,7 @@ call plug#end()
 " Start NERDTree when Vim is started without file arguments.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
-nnoremap <leader>n :NERDTreeToggle<CR>
+nmap <leader>n :NERDTreeToggle<CR>
 nmap <C-f> :NERDTreeFind<CR>
 
 let g:fzf_preview_window = 'right:50%'
@@ -50,9 +63,10 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
-set history=500
+set history=1000
 
-nmap <leader>m term mdcat %
+"nmap <leader>m "ayy<CR>:terminal ++shell mdcat %<CR><C-w>_/\V <C-r>a<C-h><CR>zz:nohlsearch<CR>
+nmap <leader>m :call setreg('a', line('.')-1)<CR>:terminal mdcat %<CR>:sleep 100m<CR>:<C-r>a<CR>
 
 " Enable filetype plugins
 filetype plugin on
@@ -61,10 +75,6 @@ filetype indent on
 " Set to auto read when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * checktime
-
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
 
 " Fast saving
 nmap <leader>w :w!<cr>
